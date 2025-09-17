@@ -3,39 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>设备维修系统</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; 
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%); 
-            min-height: 100vh; 
-            padding: 20px; 
-            color: #333; 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
         }
-        .container { 
-            max-width: 400px; 
-            margin: 0 auto; 
-            padding: 20px 0; 
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px 0;
         }
-        .header { 
-            text-align: center; 
-            margin-bottom: 30px; 
-        }
-        .header h1 { 
-            font-size: 24px; 
-            font-weight: 600; 
-            color: #1a1a1a; 
-            margin-bottom: 5px; 
-        }
-        .header p { 
-            color: #666; 
-            font-size: 14px; 
-        }
-        .nav-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
         .nav-card {
             background: #fff;
@@ -47,62 +32,90 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease;
             border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative; /* 确保tooltip能定位 */
         }
         .nav-card:active {
             transform: scale(0.98);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
-        .icon { 
-            font-size: 24px; 
-            margin-bottom: 10px; 
-            display: block; 
+        .icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
         }
-        .nav-card span { 
-            display: block; 
-            font-size: 14px; 
-            font-weight: 500; 
+        .nav-card span {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
         }
-        /* 为不同功能块定义颜色 */
+        
+        /* Tooltip 样式 */
+        .nav-card[data-tooltip]:hover::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 10px); /* 位于卡片上方10px */
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 10;
+        }
+        .nav-card[data-tooltip]:hover::before {
+            opacity: 1;
+        }
+
+        /* 颜色样式 */
         .card-1 { color: #1890ff; }
         .card-2 { color: #52c41a; }
         .card-3 { color: #faad14; }
         .card-4 { color: #ff4d4f; }
         .card-5 { color: #722ed1; }
         .card-6 { color: #13c2c2; }
+        .card-7 { color: #eb2f96; }
+        .card-8 { color: #a0d911; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>设备维修系统</h1>
-            <p>请选择您要办理的业务</p>
-        </div>
-
         <div class="nav-grid">
-            <!-- 将下面的 # 替换成您智能表格中对应视图的链接 -->
-            <a href="https://doc.weixin.qq.com/smartsheet/form/1_wplA83NAAAr190gYdOr06PrbA9YQi-7Q_4931d7" class="nav-card card-1">
+            <a href="#" class="nav-card card-1" data-tooltip="填写设备维修申请单">
                 <i class="icon">📝</i>
-                <span>我要报修</span>
+                <span>报修申请</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQuHqcN7MAa0ASga0AOY&tab=q979lj&viewId=vq13iL" class="nav-card card-2">
-                <i class="icon">🔧</i>
-                <span>维修任务</span>
+            <a href="#" class="nav-card card-2" data-tooltip="设备部填写配件与服务金额">
+                <i class="icon">💰</i>
+                <span>维修预算申请</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQuHqcN7MAa0ASga0AOY&tab=q979lj&viewId=vRs5QJ" class="nav-card card-3">
-                <i class="icon">✅</i>
+            <a href="#" class="nav-card card-3" data-tooltip="审批维修所需的配件采购">
+                <i class="icon">🛒</i>
                 <span>采购审批</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQPX6zcVsAa0ASga0AOY&tab=q979lj&viewId=vIMwPi" class="nav-card card-4">
-                <i class="icon">💰</i>
-                <span>报销审核</span>
+            <a href="#" class="nav-card card-4" data-tooltip="填写维修状态及发票信息">
+                <i class="icon">🔧</i>
+                <span>维修执行录入</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQT8KTcJ1Aa0ASga0AOY&tab=q979lj&viewId=vGinrB" class="nav-card card-5">
+            <a href="#" class="nav-card card-5" data-tooltip="生产部查询进度及验收">
+                <i class="icon">✅</i>
+                <span>维修进度与验收</span>
+            </a>
+            <a href="#" class="nav-card card-6" data-tooltip="审批维修总金额与发票">
+                <i class="icon">💲</i>
+                <span>费用审批</span>
+            </a>
+            <a href="#" class="nav-card card-7" data-tooltip="财务部门处理报销与支付">
                 <i class="icon">💳</i>
-                <span>支付操作</span>
+                <span>财务报销</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ13MxunzAa0ASga0AOY&tab=q979lj&viewId=vukaF8" class="nav-card card-6">
+            <a href="#" class="nav-card card-8" data-tooltip="查看所有维修单的汇总数据">
                 <i class="icon">📊</i>
-                <span>数据看板</span>
+                <span>数据总览</span>
             </a>
         </div>
     </div>
