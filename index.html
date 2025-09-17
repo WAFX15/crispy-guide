@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备维修系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%); 
+            min-height: 100vh; 
+            padding: 20px; 
+            color: #333; 
+        }
+        .container { 
+            max-width: 400px; 
+            margin: 0 auto; 
+            padding: 20px 0; 
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+        .header h1 { 
+            font-size: 24px; 
+            font-weight: 600; 
+            color: #1a1a1a; 
+            margin-bottom: 5px; 
+        }
+        .header p { 
+            color: #666; 
+            font-size: 14px; 
+        }
+        .nav-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+        }
+        .nav-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .nav-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .icon { 
+            font-size: 24px; 
+            margin-bottom: 10px; 
+            display: block; 
+        }
+        .nav-card span { 
+            display: block; 
+            font-size: 14px; 
+            font-weight: 500; 
+        }
+        /* 为不同功能块定义颜色 */
+        .card-1 { color: #1890ff; }
+        .card-2 { color: #52c41a; }
+        .card-3 { color: #faad14; }
+        .card-4 { color: #ff4d4f; }
+        .card-5 { color: #722ed1; }
+        .card-6 { color: #13c2c2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>设备维修系统</h1>
+            <p>请选择您要办理的业务</p>
+        </div>
+
+        <div class="nav-grid">
+            <!-- 将下面的 # 替换成您智能表格中对应视图的链接 -->
+            <a href="替换为_报修申请单表单_的链接" class="nav-card card-1">
+                <i class="icon">📝</i>
+                <span>我要报修</span>
+            </a>
+            <a href="替换为_维修跟进表_的链接" class="nav-card card-2">
+                <i class="icon">🔧</i>
+                <span>维修任务</span>
+            </a>
+            <a href="替换为_采购审批表_的链接" class="nav-card card-3">
+                <i class="icon">✅</i>
+                <span>采购审批</span>
+            </a>
+            <a href="替换为_报销审批表_的链接" class="nav-card card-4">
+                <i class="icon">💰</i>
+                <span>报销审核</span>
+            </a>
+            <a href="替换为_报销支付表_的链接" class="nav-card card-5">
+                <i class="icon">💳</i>
+                <span>支付操作</span>
+            </a>
+            <a href="替换为_设备维修汇总表_的链接" class="nav-card card-6">
+                <i class="icon">📊</i>
+                <span>数据看板</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
