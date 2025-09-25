@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>维修管理系统</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -12,6 +13,30 @@
             padding: 20px;
             color: #333;
         }
+        
+        /* 系统抬头样式 */
+        .header {
+            text-align: center;
+            margin: 0 auto 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+            max-width: 400px; /* 与容器宽度一致 */
+            width: 100%;
+        }
+        .system-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1890ff;
+            margin-bottom: 5px;
+        }
+        .system-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+        
         .container {
             max-width: 400px;
             margin: 0 auto;
@@ -48,6 +73,45 @@
             display: block;
             font-size: 14px;
             font-weight: 500;
+        }
+        
+        /* 看板数据特殊样式 */
+        .kanban-card {
+            grid-column: 1 / -1; /* 跨两列 */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.3);
+            padding: 25px 15px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .kanban-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        .kanban-card:hover::before {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+        .kanban-card .icon,
+        .kanban-card span {
+            position: relative;
+            z-index: 1;
+        }
+        .kanban-card .icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+        .kanban-card span {
+            font-size: 16px;
+            font-weight: 600;
         }
         
         /* Tooltip 样式 */
@@ -143,9 +207,16 @@
         .card-6 { color: #13c2c2; }
         .card-7 { color: #eb2f96; }
         .card-8 { color: #a0d911; }
+        .card-9 { color: #a0d911; }
     </style>
 </head>
 <body>
+    <!-- 系统抬头 - 宽度与看板数据保持一致 -->
+    <div class="header">
+        <div class="system-title">维修管理系统</div>
+        <div class="system-subtitle">一站式维修流程管理平台</div>
+    </div>
+    
     <div class="container">
         <div class="nav-grid">
             <a href="https://doc.weixin.qq.com/smartsheet/form/1_wplA83NAAAr190gYdOr06PrbA9YQi-7Q_4931d7" class="nav-card card-1">
@@ -154,7 +225,7 @@
             </a>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh8rBGsRAa0ASga0AOY&tab=q979lj&viewId=vq13iL" class="nav-card card-2">
                 <i class="icon">💰</i>
-                <span>维修预算申请</span>
+                <span>预算申请</span>
             </a>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh8rBGsRAa0ASga0AOY&tab=q979lj&viewId=vRs5QJ" class="nav-card card-3">
                 <i class="icon">🛒</i>
@@ -162,11 +233,11 @@
             </a>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQTOnwa1yAa0ASga0AOY&tab=q979lj&viewId=vSVCAW" class="nav-card card-4">
                 <i class="icon">🔧</i>
-                <span>维修执行录入</span>
+                <span>执行录入</span>
             </a>
             <div class="nav-card card-5" id="progress-card">
                 <i class="icon">✅</i>
-                <span>维修进度与验收</span>
+                <span>进度验收</span>
             </div>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQFlqJ5IaAa0ASga0AOY&tab=q979lj&viewId=vIMwPi" class="nav-card card-6">
                 <i class="icon">💲</i>
@@ -177,8 +248,13 @@
                 <span>财务报销</span>
             </a>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQZ3m04vpAa0ASga0AOY&tab=q979lj&viewId=vukaF8" class="nav-card card-8">
-                <i class="icon">📊</i>
+                <i class="icon">📋</i>
                 <span>数据总览</span>
+            </a>
+            <!-- 看板数据特殊样式 -->
+            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQLYoiCP7Aa0ASga0AOY&tab=db_fHXaY7" class="nav-card kanban-card">
+                <i class="icon">📊</i>
+                <span>看板数据</span>
             </a>
         </div>
     </div>
@@ -191,16 +267,16 @@
                 <button class="close-btn">&times;</button>
             </div>
             <div class="department-grid">
-                <!-- 总览按钮 - 放在最上面 -->
-                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQOilosnCAa0ASga0AOY&tab=q979lj&viewId=vF3KRw" class="department-item">
-                    总览
-                </a>
                 <!-- 部门列表 -->
                 <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ8nuwr94Aa0ASga0AOY&tab=q979lj&viewId=vVwEU3" class="department-item">原木</a>
                 <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ8nuwr94Aa0ASga0AOY&tab=q979lj&viewId=vWbfJn" class="department-item">整理部</a>
                 <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQRgAqg8bAa0ASga0AOY&tab=q979lj&viewId=vhsC7x" class="department-item">码头</a>
                 <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ6thlYuzAa0ASga0AOY&tab=q979lj&viewId=vB4DFn" class="department-item">GCC</a>
                 <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQTHML9yKAa0ASga0AOY&tab=q979lj&viewId=voN2VA" class="department-item">柴油部</a>
+                <!-- 总览按钮 - 放在最上面 -->
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQOilosnCAa0ASga0AOY&tab=q979lj&viewId=vF3KRw" class="department-item">
+                    总览
+                </a>
             </div>
         </div>
     </div>
