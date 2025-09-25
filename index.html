@@ -32,7 +32,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            position: relative; /* 确保tooltip能定位 */
+            position: relative;
+            cursor: pointer;
         }
         .nav-card:active {
             transform: scale(0.98);
@@ -53,7 +54,7 @@
         .nav-card[data-tooltip]:hover::before {
             content: attr(data-tooltip);
             position: absolute;
-            bottom: calc(100% + 10px); /* 位于卡片上方10px */
+            bottom: calc(100% + 10px);
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.8);
@@ -69,6 +70,68 @@
         }
         .nav-card[data-tooltip]:hover::before {
             opacity: 1;
+        }
+
+        /* 部门选择模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 90%;
+            max-width: 300px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+        }
+        .department-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .department-item {
+            display: block;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            text-align: center;
+            transition: all 0.2s ease;
+            border: 1px solid #e9ecef;
+        }
+        .department-item:hover {
+            background: #e9ecef;
+            transform: translateY(-1px);
         }
 
         /* 颜色样式 */
@@ -101,10 +164,10 @@
                 <i class="icon">🔧</i>
                 <span>维修执行录入</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQOilosnCAa0ASga0AOY&tab=q979lj&viewId=vF3KRw" class="nav-card card-5">
+            <div class="nav-card card-5" id="progress-card">
                 <i class="icon">✅</i>
                 <span>维修进度与验收</span>
-            </a>
+            </div>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQFlqJ5IaAa0ASga0AOY&tab=q979lj&viewId=vIMwPi" class="nav-card card-6">
                 <i class="icon">💲</i>
                 <span>费用审批</span>
@@ -119,5 +182,58 @@
             </a>
         </div>
     </div>
+
+    <!-- 部门选择模态框 -->
+    <div class="modal" id="departmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">选择部门</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="department-grid">
+                <!-- 总览按钮 - 放在最上面 -->
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQOilosnCAa0ASga0AOY&tab=q979lj&viewId=vF3KRw" class="department-item">
+                    总览
+                </a>
+                <!-- 部门列表 -->
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ8nuwr94Aa0ASga0AOY&tab=q979lj&viewId=vVwEU3" class="department-item">原木</a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ8nuwr94Aa0ASga0AOY&tab=q979lj&viewId=vWbfJn" class="department-item">整理部</a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQRgAqg8bAa0ASga0AOY&tab=q979lj&viewId=vhsC7x" class="department-item">码头</a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ6thlYuzAa0ASga0AOY&tab=q979lj&viewId=vB4DFn" class="department-item">GCC</a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQTHML9yKAa0ASga0AOY&tab=q979lj&viewId=voN2VA" class="department-item">柴油部</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取元素
+        const progressCard = document.getElementById('progress-card');
+        const departmentModal = document.getElementById('departmentModal');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // 点击维修进度与验收卡片显示模态框
+        progressCard.addEventListener('click', function() {
+            departmentModal.style.display = 'flex';
+        });
+
+        // 点击关闭按钮隐藏模态框
+        closeBtn.addEventListener('click', function() {
+            departmentModal.style.display = 'none';
+        });
+
+        // 点击模态框背景隐藏模态框
+        departmentModal.addEventListener('click', function(e) {
+            if (e.target === departmentModal) {
+                departmentModal.style.display = 'none';
+            }
+        });
+
+        // 按ESC键隐藏模态框
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                departmentModal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
