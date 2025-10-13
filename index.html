@@ -54,7 +54,6 @@
         
         /* 看板数据特殊样式 */
         .kanban-card {
-            grid-column: 1 / -1; /* 跨两列 */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             box-shadow: 0 6px 20px rgba(118, 75, 162, 0.3);
@@ -183,8 +182,7 @@
         .card-5 { color: #722ed1; }
         .card-6 { color: #13c2c2; }
         .card-7 { color: #eb2f96; }
-        .card-8 { color: #a0d911; }
-        .card-9 { color: #a0d911; }
+        .card-8 { color: #fa8c16; } /* 质保填写按钮颜色 */
     </style>
 </head>
 <body>
@@ -197,6 +195,11 @@
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh8rBGsRAa0ASga0AOY&tab=q979lj&viewId=vq13iL" class="nav-card card-2">
                 <i class="icon">💰</i>
                 <span>预算申请</span>
+            </a>
+            <!-- 新增质保填写按钮 -->
+            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQrc87DY9Aa0ASga0AOY&tab=q979lj&viewId=v1Ojxl" class="nav-card card-8">
+                <i class="icon">📄</i>
+                <span>质保填写</span>
             </a>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh8rBGsRAa0ASga0AOY&tab=q979lj&viewId=vRs5QJ" class="nav-card card-3">
                 <i class="icon">🛒</i>
@@ -218,11 +221,12 @@
                 <i class="icon">💳</i>
                 <span>财务报销</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQZ3m04vpAa0ASga0AOY&tab=q979lj&viewId=vukaF8" class="nav-card card-8">
+            
+            <!-- 数据总览和看板数据放在同一行，都采用看板数据样式 -->
+            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQZ3m04vpAa0ASga0AOY&tab=q979lj&viewId=vukaF8" class="nav-card kanban-card">
                 <i class="icon">📋</i>
                 <span>数据总览</span>
             </a>
-            <!-- 看板数据特殊样式 -->
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQLYoiCP7Aa0ASga0AOY&tab=db_fHXaY7" class="nav-card kanban-card">
                 <i class="icon">📊</i>
                 <span>看板数据</span>
