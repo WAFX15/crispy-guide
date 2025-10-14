@@ -201,10 +201,11 @@
                 <i class="icon">📄</i>
                 <span>质保填写</span>
             </a>
-            <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh8rBGsRAa0ASga0AOY&tab=q979lj&viewId=vRs5QJ" class="nav-card card-3">
+            <!-- 修改采购审批为点击触发模态框 -->
+            <div class="nav-card card-3" id="purchase-card">
                 <i class="icon">🛒</i>
                 <span>采购审批</span>
-            </a>
+            </div>
             <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQTOnwa1yAa0ASga0AOY&tab=q979lj&viewId=vSVCAW" class="nav-card card-4">
                 <i class="icon">🔧</i>
                 <span>执行录入</span>
@@ -256,20 +257,45 @@
         </div>
     </div>
 
+    <!-- 采购审批选择模态框 -->
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">采购审批流程</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="department-grid">
+                <!-- 审批选项 -->
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh8rBGsRAa0ASga0AOY&tab=q979lj&viewId=vRs5QJ" class="department-item">审批</a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQiQ9Gfy4Aa0ASga0AOY&tab=q979lj&viewId=vTfvqq" class="department-item">二次审批</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 获取元素
         const progressCard = document.getElementById('progress-card');
+        const purchaseCard = document.getElementById('purchase-card');
         const departmentModal = document.getElementById('departmentModal');
-        const closeBtn = document.querySelector('.close-btn');
+        const purchaseModal = document.getElementById('purchaseModal');
+        const closeBtns = document.querySelectorAll('.close-btn');
 
-        // 点击维修进度与验收卡片显示模态框
+        // 点击维修进度与验收卡片显示部门选择模态框
         progressCard.addEventListener('click', function() {
             departmentModal.style.display = 'flex';
         });
 
-        // 点击关闭按钮隐藏模态框
-        closeBtn.addEventListener('click', function() {
-            departmentModal.style.display = 'none';
+        // 点击采购审批卡片显示采购审批选择模态框
+        purchaseCard.addEventListener('click', function() {
+            purchaseModal.style.display = 'flex';
+        });
+
+        // 关闭按钮点击事件
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.style.display = 'none';
+            });
         });
 
         // 点击模态框背景隐藏模态框
@@ -279,10 +305,17 @@
             }
         });
 
+        purchaseModal.addEventListener('click', function(e) {
+            if (e.target === purchaseModal) {
+                purchaseModal.style.display = 'none';
+            }
+        });
+
         // 按ESC键隐藏模态框
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 departmentModal.style.display = 'none';
+                purchaseModal.style.display = 'none';
             }
         });
     </script>
