@@ -174,6 +174,92 @@
             transform: translateY(-1px);
         }
 
+        /* 左下角历史图标样式 */
+        .history-fab {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            font-size: 20px;
+        }
+        .history-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(52, 152, 219, 0.5);
+        }
+        .history-fab:active {
+            transform: scale(0.95);
+        }
+
+        /* 设备历史故障模态框样式 */
+        .history-modal .modal-content {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            max-width: 320px;
+        }
+        .history-modal .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .history-modal .modal-title {
+            color: white;
+        }
+        .history-modal .close-btn {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .history-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .history-item {
+            display: block;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 14px 15px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .history-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .history-item:hover::before {
+            transform: translateX(0);
+        }
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .history-item span {
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
         /* 颜色样式 */
         .card-1 { color: #1890ff; }
         .card-2 { color: #52c41a; }
@@ -235,6 +321,11 @@
         </div>
     </div>
 
+    <!-- 左下角历史图标 -->
+    <button class="history-fab" id="history-fab">
+        ⏳
+    </button>
+
     <!-- 部门选择模态框 -->
     <div class="modal" id="departmentModal">
         <div class="modal-content">
@@ -272,12 +363,42 @@
         </div>
     </div>
 
+    <!-- 设备历史故障模态框 -->
+    <div class="modal history-modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">设备历史故障查询</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="history-grid">
+                <!-- 设备历史故障查询选项 -->
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQR5wXDrEAa0ASga0AOY&tab=t7TEq5&viewId=vPhMhf" class="history-item">
+                    <span>原木设备故障记录</span>
+                </a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQi0MQnrKAa0ASga0AOY&tab=tVpExI&viewId=vNOGbS" class="history-item">
+                    <span>整理部设备故障记录</span>
+                </a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQWsBu169Aa0ASga0AOY&tab=taIUaR&viewId=v6wWh5" class="history-item">
+                    <span>码头设备故障记录</span>
+                </a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQh5hKWi6Aa0ASga0AOY&tab=tcWqxJ&viewId=vLgasB" class="history-item">
+                    <span>GCC设备故障记录</span>
+                </a>
+                <a href="https://doc.weixin.qq.com/smartsheet/s3_Aa0ASga0AOYCNosiDpzvFSSCy0x0A?scode=AJQADwc3ADQ43i6Ac8Aa0ASga0AOY&tab=tBlhF2&viewId=vOSjNq" class="history-item">
+                    <span>服务车故障记录</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 获取元素
         const progressCard = document.getElementById('progress-card');
         const purchaseCard = document.getElementById('purchase-card');
+        const historyFab = document.getElementById('history-fab');
         const departmentModal = document.getElementById('departmentModal');
         const purchaseModal = document.getElementById('purchaseModal');
+        const historyModal = document.getElementById('historyModal');
         const closeBtns = document.querySelectorAll('.close-btn');
 
         // 点击维修进度与验收卡片显示部门选择模态框
@@ -288,6 +409,11 @@
         // 点击采购审批卡片显示采购审批选择模态框
         purchaseCard.addEventListener('click', function() {
             purchaseModal.style.display = 'flex';
+        });
+
+        // 点击历史图标显示历史故障查询模态框
+        historyFab.addEventListener('click', function() {
+            historyModal.style.display = 'flex';
         });
 
         // 关闭按钮点击事件
@@ -311,11 +437,18 @@
             }
         });
 
+        historyModal.addEventListener('click', function(e) {
+            if (e.target === historyModal) {
+                historyModal.style.display = 'none';
+            }
+        });
+
         // 按ESC键隐藏模态框
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 departmentModal.style.display = 'none';
                 purchaseModal.style.display = 'none';
+                historyModal.style.display = 'none';
             }
         });
     </script>
